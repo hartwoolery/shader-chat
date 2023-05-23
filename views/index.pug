@@ -1,0 +1,110 @@
+extends layout
+
+block content
+	.flex.flex-col.h-full
+		.flex.grow
+			.flex.flex-col(class="w-1/2" style="padding:10px;")
+				canvas( style="height:calc(60vh - 85px); width:100%; background-color:black; display:none" id='canvas')
+				iframe(id="8th" src="https://hart-default-gohart.dev.8thwall.app/face-shader/" allowtransparency="true" allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone;" style="background:#000000; border:0px; height:calc(60vh - 85px); width:100%;")
+				.divider
+				.w-full(id="chatbox" style="background-color:rgb(32,38,51); padding:5px; border-radius:.5rem; overflow-y:auto; height:calc(40vh - 85px)")
+						.chat.chat-start
+							.chat-bubble.chat-bubble-secondary Hi there! 
+						.chat.chat-start
+							.chat-bubble.chat-bubble-secondary Describe your <strong>shader</strong> below and I will attempt to alter the code in the right panel to create it. 
+						.chat.chat-start
+							.chat-bubble.chat-bubble-secondary You can also say <strong>"Help me ..."</strong> and I can give you ideas for shaders
+				.flex.flex-row.w-full
+					.form-control(style="padding-left:0px; margin-bottom:-6px; padding-top:5px;") 
+						label.cursor-pointer.label
+							input.checkbox.checkbox-primary(type='checkbox' checked='checked' id="commentCode")
+							span.label-text(style="padding-left:10px;") Comment Code
+					.form-control(style="padding-left:10px; margin-bottom:-6px; padding-top:5px;") 
+						label.cursor-pointer.label
+							input.checkbox.checkbox-primary(type='checkbox' checked='checked' id="clearHistory")
+							span.label-text(style="padding-left:10px;") Clear Chat Session
+					.form-control(style="padding-left:10px; margin-bottom:-6px; padding-top:5px;") 
+						label.cursor-pointer.label
+							input.checkbox.checkbox-primary(type='checkbox' checked='checked' id="useGPT4")
+							span.label-text(style="padding-left:10px;") Use GPT4 (slower)
+			.flex.flex-col(class="w-1/2" style="padding:10px;")
+				.root-wrapper.w-full(id="output")
+				.flex.flex-row.w-full
+					.alert.alert-warning.shadow-lg(id="error-alert" style="margin-top:10px; padding:4px 10px 4px 10px;; display:none")
+						div
+							span(id='error-text')
+		footer.flex(style="padding:0px 10px 10px 10px;")
+			.flex(class="w-1/2")
+				form.w-full( id="chat")
+					.form-control.w-full(id='input-form')
+						.input-group.w-full.flex
+							input.grow.input.input-bordered.input-primary(type='text' id="chat-input" placeholder='Send a message...') 
+							button.btn.btn-square.btn-primary(id="go" type="submit") GO		
+			.flex(class="w-1/2")
+				.flex(class="w-1/2" style="padding-right:5px; padding-left:10px;")
+					button.btn.btn-secondary.w-full( id="run") Run Code
+				.flex(class="w-1/2" style="padding-left:5px;")
+					button.btn.btn-primary.w-full(id="run") Export To 8th Wall
+
+	script(id="fsbase" type="notjs").
+		#version 300 es
+		precision highp float;
+		precision highp int;
+
+		//the current time in milliseconds
+		uniform float time;
+
+		//uv coordinates
+		in vec2 vUv;
+
+		//the output color
+		out vec4 fragColor;
+
+		void main() {
+			fragColor = vec4(1.,1.,1.,1.);
+		}
+
+	script(id="fs" type="notjs").
+		#version 300 es
+		precision highp float;
+		precision highp int;
+
+		//the current time in milliseconds
+		uniform float time;
+
+		//uv coordinates
+		in vec2 vUv;
+
+		//the output color
+		out vec4 fragColor;
+
+		void main() {
+			fragColor = vec4(1.,1.,1.,1.);
+		}
+
+	script(id="vs" type="notjs").
+		#version 300 es
+		precision mediump sampler2DArray;
+		precision highp float;
+		precision highp int;
+		#define attribute in
+		#define varying out
+		uniform mat4 modelMatrix;
+		uniform mat4 modelViewMatrix;
+		uniform mat4 projectionMatrix;
+
+		attribute vec3 position;
+		attribute vec3 normal;
+		attribute vec2 uv;
+
+		varying vec2 vUv;
+		void main() {
+			vUv = uv;
+			vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+			gl_Position = projectionMatrix * mvPosition;
+		}
+	
+	script(src="./javascripts/editor.bundle.js")
+	script(src='/javascripts/client.js')
+
+	

@@ -1,0 +1,40 @@
+
+html {
+	@apply h-screen;
+}
+body {
+	@apply h-screen;
+}
+.textarea, .input {
+	@apply focus:outline-none;
+}
+.label-text {
+	@apply text-info
+}
+main {
+	@apply h-screen;
+}
+
+.cm-activeLine {
+	background-color: transparent !important;
+}
+
+.root-wrapper {
+    display: flex;
+	height:calc(100vh - 120px);
+	overflow-y:auto;
+    flex-direction: row;
+}
+
+.root-wrapper .cm-editor {
+	width: 0;
+	flex-grow: 1;
+	border:1px solid rgb(100,100,100) !important; 
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.token.cn_input { color: #DFFFD8; } 
+.token.cn_output { color: #B4E4FF; } 
