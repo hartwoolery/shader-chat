@@ -35,6 +35,13 @@ var runCode = function () {
 	setupWebGL();
 }
 
+var exportCode = function() {
+	var code = get8thWallCode();
+	navigator.clipboard.writeText(code);
+	setTimeout(function(){ alert('The code has been formatted for an 8th Wall A-Frame Fragment Shader and copied to the clipboard'); }, 200);
+	return false;
+}
+
 window.onmessage = function(e) {
 	if (e.data == "ready") {
 		runCode()
@@ -42,6 +49,7 @@ window.onmessage = function(e) {
 }
 
 $('#run').click(runCode)
+$('#export').click(exportCode)
 
 var counter = 0;
 var frames = [
@@ -176,6 +184,16 @@ vec2 st = gl_FragCoord.xy/vec2(400,400);\n \
 		gl_FragColor = mix(vec4(1,0,0,1), vec4(0,0,0,0), d);\n \
 }"
 
+function get8thWallCode() {
+	var code = document.editor.state.doc.toString();
+	code = code.replace('#version 300 es', '');
+	code = code.replace('precision highp float;', '');
+	code = code.replace('precision highp int;', '');
+	code = code.replace('out vec4 fragColor;', 'uniform sampler2D alphaTexture;')
+	code = code.replace(/(fragColor.*,)(.*)\)/gm, '$1texture2D(alphaTexture, vUv).r * $2)')
+	code = code.replaceAll('fragColor', 'gl_FragColor')
+	return code.trim();
+}
 
 function setupWebGL () {
 	setError('');
@@ -185,13 +203,7 @@ function setupWebGL () {
 		setError(error)
 	});
 
-	var code = document.editor.state.doc.toString();
-	code = code.replace('#version 300 es', '');
-	code = code.replace('precision highp float;', '');
-	code = code.replace('precision highp int;', '');
-	code = code.replace('out vec4 fragColor;', 'uniform sampler2D alphaTexture;')
-	code = code.replace(/(fragColor.*,)(.*)\)/gm, '$1texture2D(alphaTexture, vUv).r * $2)')
-	code = code.replaceAll('fragColor', 'gl_FragColor')
+	var code = get8thWallCode()
 	$('#8th')[0].contentWindow.postMessage(code, '*');
 
 
