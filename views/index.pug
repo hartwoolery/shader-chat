@@ -27,24 +27,28 @@ block content
 						label.cursor-pointer.label
 							input.checkbox.checkbox-primary(type='checkbox' checked='checked' id="useGPT4")
 							span.truncate.label-text &nbsp;Use GPT4 (slower)
-			.flex.flex-col(class="w-1/2" style="padding:10px 10px 10px 5px;")
-				.root-wrapper.w-full(id="output")
-				.flex.flex-row.w-full
-					.alert.alert-warning.shadow-lg(id="error-alert" style="margin-top:10px; padding:4px 10px 4px 10px;; display:none")
-						div
-							span(id='error-text')
-		footer.flex(style="padding:0px 10px 10px 10px;")
-			.flex(class="w-1/2")
-				form.w-full( id="chat")
+				form.w-full( id="chat" style="margin-top:10px;")
 					.form-control.w-full(id='input-form')
 						.input-group.w-full.flex
 							input.grow.input.input-bordered.input-primary(type='text' id="chat-input" placeholder='Send a message...') 
-							button.btn.btn-square.btn-primary(id="go" type="submit") GO		
+							button.btn.btn-square.btn-primary(id="go" type="submit") GO	
+
+			.flex.flex-col(class="w-1/2" style="padding:10px 10px 10px 5px;")
+				.root-wrapper.w-full(id="output")
+				.flex.flex-row.w-full
+					.alert.alert-warning.shadow-lg(id="error-alert" style="margin:-40px 5px 5px 5px; z-index:100; padding:4px 10px 4px 10px;; display:none")
+						div
+							span(id='error-text')
+				.flex.flex-row.w-full(style="margin-top:10px;")
+					.flex(class="w-1/2" style="padding-right:5px; ")
+						button.btn.btn-secondary.w-full( id="run") Run Code
+					.flex(class="w-1/2" style="padding-left:5px;")
+						button.btn.btn-primary.w-full(id="export") Export To 8th Wall
+		//footer.flex(style="padding:0px 10px 10px 10px;")
 			.flex(class="w-1/2")
-				.flex(class="w-1/2" style="padding-right:5px; padding-left:10px;")
-					button.btn.btn-secondary.w-full( id="run") Run Code
-				.flex(class="w-1/2" style="padding-left:5px;")
-					button.btn.btn-primary.w-full(id="export") Export To 8th Wall
+					
+			.flex(class="w-1/2")
+				
 
 	script(id="fsbase" type="notjs").
 		#version 300 es
