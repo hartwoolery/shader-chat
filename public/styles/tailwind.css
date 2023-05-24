@@ -30,7 +30,7 @@ body {
 
 .root-wrapper {
     display: flex;
-	height:calc(100svh - 82px);
+	height:calc(100svh - 80px);
 	overflow-y:auto;
     flex-direction: row;
 }

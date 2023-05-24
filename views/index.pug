@@ -5,7 +5,7 @@ block content
 		.flex.grow
 			.flex.flex-col(class="w-1/2" style="padding:10px 5px 10px 10px;")
 				canvas.half-panel( style="background-color:black; display:none" id='canvas')
-				iframe.half-panel(id="8th" src="https://gohart.8thwall.app/face-shader/" style="background:#000000; border:0px ; width:100%;" allowtransparency="true" allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone;" )
+				iframe.half-panel(id="8th" src="https://gohart.8thwall.app/face-shader/" style="background:#000000; border:0px ; width:100%; border-radius:.5rem; overflow:hidden;" allowtransparency="true" allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone;" )
 			
 				.half-panel(id="chatbox" style="background-color:rgb(32,38,51); padding:5px; margin-top:10px; border-radius:.5rem; overflow-y:auto;")
 						.chat.chat-start
