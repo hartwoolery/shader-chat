@@ -7,7 +7,8 @@
   "author": "Render Developers",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+	"tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css"
   },
   "dependencies": {
     "@codemirror/buildhelper": "^0.1.16",

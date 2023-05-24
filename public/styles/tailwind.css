@@ -1,9 +1,9 @@
 
 html {
-	@apply h-screen;
+	
 }
 body {
-	@apply h-screen;
+	
 }
 .textarea, .input {
 	@apply focus:outline-none;
@@ -11,9 +11,18 @@ body {
 .label-text {
 	@apply text-info
 }
-main {
-	@apply h-screen;
+
+.half-panel {
+	height:calc(50svh - 70px);
+	width:100%;
 }
+
+.truncate {
+	white-space: nowrap;
+	overflow: hidden !important;
+	overflow-x: hidden !important;
+	text-overflow: ellipsis !important;
+  }
 
 .cm-activeLine {
 	background-color: transparent !important;
@@ -21,7 +30,7 @@ main {
 
 .root-wrapper {
     display: flex;
-	height:calc(100vh - 120px);
+	height:calc(100svh - 82px);
 	overflow-y:auto;
     flex-direction: row;
 }
